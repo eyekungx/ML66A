@@ -122,23 +122,21 @@ if(selected == 'bmi'):
     weight = st.text_input('Weight (kg)')
     gender = st.selectbox('Gender', gender_map)
 
-    bmi_prediction = ''
-
     if st.button('Predict'):
 
-    h = float(height) / 100
-    w = float(weight)
+        h = float(height) / 100
+        w = float(weight)
 
-    bmi_value = w / (h ** 2)
+        bmi_value = w / (h ** 2)
 
-    if bmi_value < 18.5:
-        bmi_prediction = 'Underweight'
-    elif bmi_value < 25:
-        bmi_prediction = 'Normal'
-    elif bmi_value < 30:
-        bmi_prediction = 'Overweight'
-    else:
-        bmi_prediction = 'Obese'
+        if bmi_value < 18.5:
+            bmi_prediction = 'Underweight'
+        elif bmi_value < 25:
+            bmi_prediction = 'Normal'
+        elif bmi_value < 30:
+            bmi_prediction = 'Overweight'
+        else:
+            bmi_prediction = 'Obese'
 
-    st.write("BMI value:", round(bmi_value,2))
-    st.success(bmi_prediction)
+        st.write("BMI value:", round(bmi_value, 2))
+        st.success(bmi_prediction)
