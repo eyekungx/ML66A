@@ -120,12 +120,18 @@ if(selected == 'bmi'):
 
     height = st.text_input('Height (cm)')
     weight = st.text_input('Weight (kg)')
+    gender = st.selectbox('Gender', gender_map)
 
     bmi_prediction = ''
 
     if st.button('Predict'):
+
         bmi_prediction = bmi_model.predict([
-            [float(height), float(weight)]
+            [
+                float(height),
+                float(weight),
+                gender_map[gender]
+            ]
         ])
 
         if(bmi_prediction[0] == 0):
@@ -137,4 +143,4 @@ if(selected == 'bmi'):
         else:
             bmi_prediction = 'Obese'
 
-    st.success(bmi_prediction)
+        st.success(bmi_prediction)
