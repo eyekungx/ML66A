@@ -10,10 +10,11 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 riding_model = pickle.load(open("Riding_model.sav",'rb'))
 loan_model = pickle.load(open("loan_model.sav",'rb'))
+bmi_model = pickle.load(open("bmi_model.sav",'rb'))
 
 with st.sidebar:
     selected = option_menu(
-        'Classification',['Loan','Riding']
+        'Classification',['Loan','Riding','bmi']
         )
     
 gender_map = {
@@ -113,3 +114,27 @@ if(selected == 'Riding'):
         else:
           Riding_prediction = 'Owner'
     st.success(Riding_prediction)
+
+if(selected == 'bmi'):
+    st.title('BMI Classification')
+
+    height = st.text_input('Height (cm)')
+    weight = st.text_input('Weight (kg)')
+
+    bmi_prediction = ''
+
+    if st.button('Predict'):
+        bmi_prediction = bmi_model.predict([
+            [float(height), float(weight)]
+        ])
+
+        if(bmi_prediction[0] == 0):
+            bmi_prediction = 'Underweight'
+        elif(bmi_prediction[0] == 1):
+            bmi_prediction = 'Normal'
+        elif(bmi_prediction[0] == 2):
+            bmi_prediction = 'Overweight'
+        else:
+            bmi_prediction = 'Obese'
+
+    st.success(bmi_prediction)
