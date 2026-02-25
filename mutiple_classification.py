@@ -126,21 +126,19 @@ if(selected == 'bmi'):
 
     if st.button('Predict'):
 
-        bmi_prediction = bmi_model.predict([
-            [
-                float(height),
-                float(weight),
-                gender_map[gender]
-            ]
-        ])
+    h = float(height) / 100
+    w = float(weight)
 
-        if(bmi_prediction[0] == 0):
-            bmi_prediction = 'Underweight'
-        elif(bmi_prediction[0] == 1):
-            bmi_prediction = 'Normal'
-        elif(bmi_prediction[0] == 2):
-            bmi_prediction = 'Overweight'
-        else:
-            bmi_prediction = 'Obese'
+    bmi_value = w / (h ** 2)
 
-        st.success(bmi_prediction)
+    if bmi_value < 18.5:
+        bmi_prediction = 'Underweight'
+    elif bmi_value < 25:
+        bmi_prediction = 'Normal'
+    elif bmi_value < 30:
+        bmi_prediction = 'Overweight'
+    else:
+        bmi_prediction = 'Obese'
+
+    st.write("BMI value:", round(bmi_value,2))
+    st.success(bmi_prediction)
